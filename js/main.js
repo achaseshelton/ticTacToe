@@ -18,7 +18,8 @@ class Model {
         var boardArray = null;
         var turn = null;
         var marker = null;
-        var tile = null;        
+        var tile = null;
+        var value = null;        
     }
 
     init() {
@@ -32,6 +33,14 @@ class Model {
     }
     
     updateState() {
+        this.tile = Event.target.id;
+        if(this.turn % 2) {
+            this.marker = this.player1;
+            this.value = 1;
+        } else {
+            this.marker = this.player2;
+            this.value = 2;
+        }
 
     }
 
@@ -71,7 +80,7 @@ class View {
         console.log(9);
         let row = this.generateHTML({ type: "div", classes: "row", parent: this.gameBoard })
         for (let i = 0; i < 9; i++) {
-            let element = this.generateHTML({ type: "div", classes: "col-4 border border-dark border-3", id: i, text: i, parent: row })
+            let element = this.generateHTML({ type: "div", classes: "col-4 border border-dark border-3 display-1 text-center", id: i, text: i, parent: row })
         }
     }
 
@@ -84,10 +93,9 @@ class Controller {
     constructor(model, view) {
         this.v = view;
         this.m = model;
-        boardDiv = this.v.gameBoard
+        var boardDiv = document.getElementById("board");
     }
 
-    this.boardDiv.addEventlistener("click", this.m.updateState())
 }
 
 class App {
