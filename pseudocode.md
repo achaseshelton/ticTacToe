@@ -43,7 +43,7 @@ User wants to have a replayable Tic Tac Toe game.
     - Creates the board.
     - Creates the board placement array.
     - Creates the players.
-2. Game Over - Model
+2. Game Over - Model - App
     - Determines if a player has won or if all the places on the board have been covered with no winner.
     - Only run if turn is greater than or equal to 5.
     - Runs an if state mean checking the win conditions
@@ -51,16 +51,14 @@ User wants to have a replayable Tic Tac Toe game.
     - Checks to see if there is a tie.
         - If turn is equal to 8 and no win condition has been met tells the players that is a tie.
     - Else continue with the game.
-4. generateBoard - View
+4. generateBoard - Tile - View
     - Renders the board using the generateHTML function.
-5. generateHTML - View
+5. generateHTML - Tile and Game - View
     - Function to render HTML elements using javascript.
 6. updateView - View
     - Used by the controller.
     - takes the marker and tile parameter and updates the html to put the correct mark in the correct tile.
-7. updateArray - Model
-    - Takes the marker and tile parameters and pushes the correct mark into the array location.
-8. updateState - Model
+7. updateState - Model - App
     - Used by the controller on event listener.
     - increases the turn.
     - Check to see whose turn it is.
@@ -85,15 +83,12 @@ CREATE win conditions
 generateHTML()
 
 onClick =>
-updateState() =>
+updateState(I) =>
     if turn % 2 => mark = player1; tile = div clicked; value = 1
-    else => mark = player2; tile = div clicked; value = 2
+    else => mark = player2; tile = div clicked; value = 5
     
     updateArray(tile, value) =>
     puts the value in the index of tile
-
-    updateView(tile, mark) =>
-    tells the view to update the tile with the mark.
 
     gameOver() =>
     if turn >= 5 => check the win condtions => tell the view to show the winner
@@ -106,12 +101,41 @@ else => have the view show its player 2's turn
 onResetClick() =>
 resetBoard()
 
+END
 
-updateArray(tile, value){
+updateView() =>
+tile = target.event.id into an integer;
 
+if turn % 2 => event.target.innerText = player1, value = 1
+else => event.target.innerText = player2, value = 5
+
+updateArray(tile, value) =>
 boardplacement.splice(tile, value)
-}
 
-event.target.
+turn++
+
+gameOver() =>
+let solution = [
+    boardArray[0] + boardArray[1] + boardArray[2];
+    boardArray[3] + boardArray[4] + boardArray[5];
+    boardArray[6] + boardArray[7] + boardArray[8];
+    boardArray[0] + boardArray[3] + boardArray[6];
+    boardArray[1] + boardArray[4] + boardArray[7];
+    boardArray[2] + boardArray[5] + boardArray[8];
+    boardArray[0] + boardArray[4] + boardArray[8];
+    boardArray[2] + boardArray[4] + boardArray[6];
+]
+let total = 0
+
+for i = 0; i < solution.length; i++ =>
+total += i
+
+if total === 3 => alert that player 1 is the winner
+if total === 15 => alert that player 2 is the winner
+if total === 25 => alert that the game is a tie
+
+click handler
+
+
 
 

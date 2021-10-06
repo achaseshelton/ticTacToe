@@ -10,69 +10,86 @@ function init() {
 
 }
 
-class Model {
+class App {
     constructor() {
-        this.controller = null;
-        var player1 = null;
-        var player2 = null;
-        var boardArray = null;
-        var turn = null;
-        var marker = null;
-        var tile = null;
-        var value = null;        
-    }
-
-    init() {
         this.player1 = "X";
         this.player2 = "O";
-        this.boardArray = [];
         this.turn = 0;
-    }
-    setController(c) {
-        this.controller = c;
-    }
-    
-    updateState() {
-        this.tile = Event.target.id;
-        if(this.turn % 2) {
-            this.marker = this.player1;
-            this.value = 1;
-        } else {
-            this.marker = this.player2;
-            this.value = 2;
-        }
-
-    }
-
-    updateArray(a, b) {
-
-    }
-}
-
-// View class
-class View {
-    constructor() {
-        this.m = null;
-        let gameBoard = null;
-    }
-
-    setModel(model) {
-        this.m = model;
-    }
-    init() {
         this.gameBoard = document.getElementById("board");
         this.gameBoard.innerHTML = "";
-        this.generateBoard();
+        this.boardArray = [];
+        this.announcement = document.getElementById("announcement");
+        this.announcement.innerText = "";
     }
 
-    generateHTML({ type, classes, text = "", parent = null, id = "" }) {
+    init() {
+        console.log("starting the app");
+        this.generateBoard()
+    }
+    gameOver() {
+        this.solutions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        for (let i = 0; i < this.solutions.length; i++) {
+            let total = 0;
+            for (let j = 0; j < this.solutions[i].length; j++) {
+
+                // console.log({ i, j, currentSolutionIndexValue: this.solutions[i][j] })
+                total += this.boardArray[this.solutions[i][j]].value;
+                if (total === 3) {
+                    this.announcement.innerText = "Player 1 Wins"
+                }
+                if (total === 15) {
+                    this.announcement.innerText = "Player 2 Wins"
+                }
+            }
+            total = 0;
+        }
+        if (this.turn === 9) {
+            this.announcement.innerText = "This game is a draw";
+        }
+    }
+    updateState(i, event) {
+        // this.tile = Event.target.id;
+        // console.log(this);
+        // console.log(event)
+        // console.log(typeof i);
+        console.log(this.boardArray);
+        if (!this.boardArray[i].clicked) {
+            if (this.turn % 2 == 0) {
+                this.boardArray[i].placement.innerText = this.player1;
+                this.boardArray[i].value = 1;
+            } else {
+                this.boardArray[i].placement.innerText = this.player2;
+                this.boardArray[i].value = 5;
+            }
+            this.boardArray[i].clicked = true;
+            this.turn++;
+            console.log(this.turn);
+        }
+        if (this.turn >= 5) {
+            this.gameOver()
+        }
+    }
+
+    generateHTML({ type, types, classes, text = "", parent = null, id = "", onclick = "" }) {
         let element = document.createElement(type)
         element.className = classes
+        element.type = types
         element.innerText = text
         element.id = id;
+        element.onclick = onclick;
         if (parent) {
             parent.appendChild(element)
         }
+
         return element
     }
 
@@ -80,37 +97,21 @@ class View {
         console.log(9);
         let row = this.generateHTML({ type: "div", classes: "row", parent: this.gameBoard })
         for (let i = 0; i < 9; i++) {
-            let element = this.generateHTML({ type: "div", classes: "col-4 border border-dark border-3 display-1 text-center", id: i, text: i, parent: row })
+            let col = this.generateHTML({ type: "div", classes: "col-4 display-1 text-center p-2", id: i, parent: row })
+            let button = this.generateHTML({ type: "button", types: "button", classes: "btn-tile btn-primary h-100 w-100", onclick: this.updateState.bind(this, i), parent: col })
+            let tile = new Tile(button, i);
+            this.boardArray.push(tile);
         }
     }
-
-    updateView(a, b) {
-        a.innerText = b;
-    }
 }
 
-class Controller {
-    constructor(model, view) {
-        this.v = view;
-        this.m = model;
-        var boardDiv = document.getElementById("board");
-    }
+// Tile should create the tiles on the board, store the data for if a tile has been clicked, a value based on who clicked.
 
-}
-
-class App {
-    constructor() {
-        this.m = new Model();
-        this.v = new View();
-        this.v.setModel(this.m);
-        this.c = new Controller(this.m, this.v);
-        this.m.setController(this.c);
-    }
-
-    init() {
-        console.log("starting the app");
-        // this.c.init();
-        this.v.init();
-        // this.m.init();
+class Tile {
+    constructor(place, i) {
+        this.clicked = false;
+        this.value = 0;
+        this.placement = place;
+        this.index = i;
     }
 }
