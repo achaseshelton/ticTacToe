@@ -51,12 +51,10 @@ User wants to have a replayable Tic Tac Toe game.
     - Checks to see if there is a tie.
         - If turn is equal to 8 and no win condition has been met tells the players that is a tie.
     - Else continue with the game.
-4. Turn - View
-    - Takes the turn data and displays whose turn it is.
-    - If turn is even view shows that its player 1's turn.
-    - If odd view shows its player 2's turn.
+4. generateBoard - View
+    - Renders the board using the generateHTML function.
 5. generateHTML - View
-    - Renders the board for the game. 1 row with 9 col-4.
+    - Function to render HTML elements using javascript.
 6. updateView - View
     - Used by the controller.
     - takes the marker and tile parameter and updates the html to put the correct mark in the correct tile.
@@ -71,10 +69,6 @@ User wants to have a replayable Tic Tac Toe game.
     - Updates the placement array.
     - Updates the view.
     - Checks the win conditions.
-9. resetBoard - View
-    - Used by the controller on reset button click
-    - clears all divs in the board container.
-    - runs the generateHTML function to repopulate the board
 
 
 ### Example

@@ -13,14 +13,30 @@ function init() {
 class Model {
     constructor() {
         this.controller = null;
-        var player1 = "X";
-        var player2 = "O";
-        var boardArray = [];
-        
-        
+        var player1 = null;
+        var player2 = null;
+        var boardArray = null;
+        var turn = null;
+        var marker = null;
+        var tile = null;        
+    }
+
+    init() {
+        this.player1 = "X";
+        this.player2 = "O";
+        this.boardArray = [];
+        this.turn = 0;
     }
     setController(c) {
         this.controller = c;
+    }
+    
+    updateState() {
+
+    }
+
+    updateArray(a, b) {
+
     }
 }
 
@@ -59,13 +75,19 @@ class View {
         }
     }
 
+    updateView(a, b) {
+        a.innerText = b;
+    }
 }
 
 class Controller {
     constructor(model, view) {
         this.v = view;
         this.m = model;
+        boardDiv = this.v.gameBoard
     }
+
+    this.boardDiv.addEventlistener("click", this.m.updateState())
 }
 
 class App {
