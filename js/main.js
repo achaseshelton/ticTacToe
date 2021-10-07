@@ -23,6 +23,8 @@ class App {
         this.announcement = document.getElementById("announcement");
         this.announcement.innerText = "";
         this.gameStatus = "on";
+        this.whoseTurn = document.getElementById("turn");
+        this.whoseTurn.innerText = "Player 1's Turn";
     }
 
     init() {
@@ -52,16 +54,19 @@ class App {
                 if (total === 3) {
                     this.announcement.innerText = "Player 1 Wins"
                     this.gameStatus = "off";
+                    this.whoseTurn.innerText = "";
                 }
                 if (total === 15) {
                     this.announcement.innerText = "Player 2 Wins"
                     this.gameStatus = "off";
+                    this.whoseTurn.innerText = "";
                 }
             }
             total = 0;
         }
         if (this.turn === 9 && this.gameStatus == "on") {
             this.announcement.innerText = "This game is a draw";
+            this.whoseTurn.innerText = "";
         }
     }
     updateState(i, event) {
@@ -74,12 +79,18 @@ class App {
             if (this.turn % 2 == 0) {
                 this.boardArray[i].placement.innerText = this.player1;
                 this.boardArray[i].value = 1;
+                // console.log(this.boardArray);
             } else {
                 this.boardArray[i].placement.innerText = this.player2;
                 this.boardArray[i].value = 5;
             }
             this.boardArray[i].clicked = true;
             this.turn++;
+            if(this.turn % 2 == 0) {
+                this.whoseTurn.innerText = "Player 1's Turn";
+            } else {
+                this.whoseTurn.innerText = "Player 2's Turn";
+            };
             console.log(this.turn);
         }
         if (this.turn >= 5) {
