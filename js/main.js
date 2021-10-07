@@ -13,6 +13,7 @@ function init() {
 
 class App {
     constructor() {
+        // App - Model
         this.player1 = "X";
         this.player2 = "O";
         this.turn = 0;
@@ -25,9 +26,12 @@ class App {
     }
 
     init() {
-        console.log("starting the app");
+        // console.log("starting the app");
         this.generateBoard()
     }
+
+// App - Controller
+
     gameOver() {
         this.solutions = [
             [0, 1, 2],
@@ -65,7 +69,7 @@ class App {
         // console.log(this);
         // console.log(event)
         // console.log(typeof i);
-        console.log(this.boardArray);
+        // console.log(this.boardArray);
         if (!this.boardArray[i].clicked && this.gameStatus == "on") {
             if (this.turn % 2 == 0) {
                 this.boardArray[i].placement.innerText = this.player1;
@@ -83,6 +87,8 @@ class App {
         }
     }
 
+    // App View
+
     generateHTML({ type, types, classes, text = "", parent = null, id = "", onclick = "" }) {
         let element = document.createElement(type)
         element.className = classes
@@ -98,7 +104,7 @@ class App {
     }
 
     generateBoard() {
-        console.log(9);
+        // console.log(9);
         let row = this.generateHTML({ type: "div", classes: "row", parent: this.gameBoard })
         for (let i = 0; i < 9; i++) {
             let col = this.generateHTML({ type: "div", classes: "col-4 display-4 text-center p-2 p-e-2", id: i, parent: row })
@@ -109,7 +115,7 @@ class App {
     }
 }
 
-// Tile should create the tiles on the board, store the data for if a tile has been clicked, a value based on who clicked.
+// Tile should create the tiles on the board, store the data for if a tile has been clicked, a value based on who clicked. Only has model.
 
 class Tile {
     constructor(place, i) {
