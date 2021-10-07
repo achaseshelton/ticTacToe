@@ -101,7 +101,7 @@ class App {
         console.log(9);
         let row = this.generateHTML({ type: "div", classes: "row", parent: this.gameBoard })
         for (let i = 0; i < 9; i++) {
-            let col = this.generateHTML({ type: "div", classes: "col-4 display-4 text-center p-2", id: i, parent: row })
+            let col = this.generateHTML({ type: "div", classes: "col-4 display-4 text-center p-2 p-e-2", id: i, parent: row })
             let button = this.generateHTML({ type: "button", types: "button", classes: "btn-tile btn-primary h-100 w-100", onclick: this.updateState.bind(this, i), parent: col })
             let tile = new Tile(button, i);
             this.boardArray.push(tile);

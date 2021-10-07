@@ -1,6 +1,7 @@
 .btn-tile {
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 20vw;
+    min-height: 20vh;
+
 }
 
 #announcement {
