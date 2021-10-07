@@ -1,8 +1,9 @@
+var a;
 function init() {
     // instantiate and init the Model, View, and Controller
 
     // 1 - page loads, run init on the app
-    let a = new App();
+    a = new App();
 
     a.init();
 
@@ -16,10 +17,11 @@ class App {
         this.player2 = "O";
         this.turn = 0;
         this.gameBoard = document.getElementById("board");
-        this.gameBoard.innerHTML = "";
+        this.gameBoard.innerText = "";
         this.boardArray = [];
         this.announcement = document.getElementById("announcement");
         this.announcement.innerText = "";
+        this.gameStatus = "on";
     }
 
     init() {
@@ -45,14 +47,16 @@ class App {
                 total += this.boardArray[this.solutions[i][j]].value;
                 if (total === 3) {
                     this.announcement.innerText = "Player 1 Wins"
+                    this.gameStatus = "off";
                 }
                 if (total === 15) {
                     this.announcement.innerText = "Player 2 Wins"
+                    this.gameStatus = "off";
                 }
             }
             total = 0;
         }
-        if (this.turn === 9) {
+        if (this.turn === 9 && this.gameStatus == "on") {
             this.announcement.innerText = "This game is a draw";
         }
     }
@@ -62,7 +66,7 @@ class App {
         // console.log(event)
         // console.log(typeof i);
         console.log(this.boardArray);
-        if (!this.boardArray[i].clicked) {
+        if (!this.boardArray[i].clicked && this.gameStatus == "on") {
             if (this.turn % 2 == 0) {
                 this.boardArray[i].placement.innerText = this.player1;
                 this.boardArray[i].value = 1;
@@ -97,7 +101,7 @@ class App {
         console.log(9);
         let row = this.generateHTML({ type: "div", classes: "row", parent: this.gameBoard })
         for (let i = 0; i < 9; i++) {
-            let col = this.generateHTML({ type: "div", classes: "col-4 display-1 text-center p-2", id: i, parent: row })
+            let col = this.generateHTML({ type: "div", classes: "col-4 display-4 text-center p-2", id: i, parent: row })
             let button = this.generateHTML({ type: "button", types: "button", classes: "btn-tile btn-primary h-100 w-100", onclick: this.updateState.bind(this, i), parent: col })
             let tile = new Tile(button, i);
             this.boardArray.push(tile);

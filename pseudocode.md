@@ -43,6 +43,7 @@ User wants to have a replayable Tic Tac Toe game.
     - Creates the board.
     - Creates the board placement array.
     - Creates the players.
+    - Creates the tiles
 2. Game Over - Model - App
     - Determines if a player has won or if all the places on the board have been covered with no winner.
     - Only run if turn is greater than or equal to 5.
@@ -51,14 +52,11 @@ User wants to have a replayable Tic Tac Toe game.
     - Checks to see if there is a tie.
         - If turn is equal to 8 and no win condition has been met tells the players that is a tie.
     - Else continue with the game.
-4. generateBoard - Tile - View
+3. generateBoard - App - View
     - Renders the board using the generateHTML function.
-5. generateHTML - Tile and Game - View
+4. generateHTML - App - View
     - Function to render HTML elements using javascript.
-6. updateView - View
-    - Used by the controller.
-    - takes the marker and tile parameter and updates the html to put the correct mark in the correct tile.
-7. updateState - Model - App
+5. updateState - Controller - App
     - Used by the controller on event listener.
     - increases the turn.
     - Check to see whose turn it is.
@@ -83,20 +81,21 @@ CREATE win conditions
 generateHTML()
 
 onClick =>
-updateState(I) =>
-    if turn % 2 => mark = player1; tile = div clicked; value = 1
-    else => mark = player2; tile = div clicked; value = 5
-    
-    updateArray(tile, value) =>
-    puts the value in the index of tile
+updateState(i) =>
+    if tile hasnt been clicked
+        if turn % 2 => 
+            boardArray[i]value = 1
+            boardArray[i]innerText = player1
+
+        else =>
+            boardArray[i]value = 5
+            boardArray[i]innerText = player2
 
     gameOver() =>
-    if turn >= 5 => check the win condtions => tell the view to show the winner
-    else if turn = 8 => no win conditions me => tell the view to show a tie.
-
-turn() =>
-if turn % 2 => have the view show its player 1's turn
-else => have the view show its player 2's turn
+    if turn >= 5 => 
+        check the win condtions => 
+            tell the view to show the winner
+    else if turn = 9 => no win conditions met => tell the view to show a tie.
 
 onResetClick() =>
 resetBoard()
