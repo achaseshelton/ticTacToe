@@ -28,7 +28,6 @@ class App {
     }
 
     init() {
-        // console.log("starting the app");
         this.generateBoard()
     }
 
@@ -48,8 +47,6 @@ class App {
         for (let i = 0; i < this.solutions.length; i++) {
             let total = 0;
             for (let j = 0; j < this.solutions[i].length; j++) {
-
-                // console.log({ i, j, currentSolutionIndexValue: this.solutions[i][j] })
                 total += this.boardArray[this.solutions[i][j]].value;
                 if (total === 3) {
                     this.announcement.innerText = "Player 1 Wins"
@@ -70,11 +67,6 @@ class App {
         }
     }
     updateState(i, event) {
-        // this.tile = Event.target.id;
-        // console.log(this);
-        // console.log(event)
-        // console.log(typeof i);
-        // console.log(this.boardArray);
         if (!this.boardArray[i].clicked && this.gameStatus == "on") {
             if (this.turn % 2 == 0) {
                 this.boardArray[i].placement.innerText = this.player1;
@@ -91,7 +83,7 @@ class App {
             } else {
                 this.whoseTurn.innerText = "Player 2's Turn";
             };
-            console.log(this.turn);
+            // console.log(this.turn);
         }
         if (this.turn >= 5) {
             this.gameOver()
