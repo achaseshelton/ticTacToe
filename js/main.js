@@ -66,6 +66,7 @@ class App {
             this.whoseTurn.innerText = "";
         }
     }
+    
     updateState(i, event) {
         if (!this.boardArray[i].clicked && this.gameStatus == "on") {
             if (this.turn % 2 == 0) {
